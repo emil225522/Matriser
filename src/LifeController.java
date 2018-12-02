@@ -1,6 +1,6 @@
 public class LifeController {
 	public static void main(String[] args) {
-		LifeBoard board = new LifeBoard(9, 9);
+		LifeBoard board = new LifeBoard(5, 5);
 		LifeView window = new LifeView(board);
 		Life life = new Life(board);
 		window.drawBoard();

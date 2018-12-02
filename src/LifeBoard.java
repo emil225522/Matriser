@@ -1,6 +1,6 @@
 public class LifeBoard {
 	private int rows, cols;
-	 boolean[][] board;
+	boolean[][] board;
 	private int generation = 1;
 
 	/** Skapar en spelplan med rows rader och cols kolonner. Spelplanen är från
@@ -14,10 +14,8 @@ public class LifeBoard {
 	/** Ger true om det finns en individ i rutan med index row, col, false annars. 
 	    Om index row, col är utanför spelplanen returneras false */
 	public boolean get(int row, int col) {
-		if (row >= 0 && row < this.rows && col >= 0 && row < this.rows)
-			if ((board[row][col] == true)) {
-				return true;
-			}
+		if (row >= 0 && row < this.rows && col >= 0 && col < this.cols)
+				return (board[row][col]);
 		return false;
 	}
 

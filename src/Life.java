@@ -2,56 +2,54 @@
 public class Life {
 	int generation = 1;
 	LifeBoard lifeBoard;
-	int i, j;
+	LifeBoard tempBoard;
 	public Life(LifeBoard board) {
 		this.lifeBoard = board;
 	}
 	void newGeneration() {
-		boolean[][] temp = new boolean[lifeBoard.getRows()][lifeBoard.getCols()];
-		for (int i = 0; i < lifeBoard.board.length; i++) {
-			for (int j = 0; j < lifeBoard.board[0].length; j++) {
-		temp[i][j] = lifeBoard.board[i][j];
+		LifeBoard tempBoard = new LifeBoard(lifeBoard.getRows(),lifeBoard.getCols());
+		for (int i = 0; i <lifeBoard.getRows() ; i++) {
+			for (int j = 0; j < lifeBoard.getCols(); j++) {
+				tempBoard.board[i][j] = lifeBoard.get(i,j);
+			}
+			
+		}
+		for (int y = 0; y < tempBoard.getRows() ; y++) {
+			for (int x = 0; x < tempBoard.getCols(); x++) {
+			 int n  = GetNeighbours(tempBoard,x,y);
+			 System.out.println(n);
+			 if (n < 2 || n >3)
+				 lifeBoard.put(x, y, false);
+			 else if (n == 3)
+				 lifeBoard.put(x, y, true);
+				
 			}
 		}
-		for (int i = 1; i < temp.length-1; i++) {
-			for (int j = 1; j < temp[0].length-1; j++) {
-		if (temp[i-1][j] == true) {
+		for (int i = 0; i < tempBoard.getCols(); i++) {
 			
-		
 			
-			lifeBoard.put(i, j, false);
-		}
-			}
-		}
-		
+			 //System.out.println(tempBoard.board[2][i]);
+			 }
 		//if (GetNeighbours(lifeBoard) >1 && GetNeighbours(lifeBoard) < 3)
 		//flip(i, j);
 			lifeBoard.increaseGeneration();
 	}
-	private int GetNeighbours(LifeBoard board) {
-		int row = board.getRows();
-		int col = board.getCols();
-		int counter = 0;
-		boolean[][] temp = new boolean[row][col];
-		for (int i = 0; row < lifeBoard.getRows(); i++) {
-			for (int j = 0; j < lifeBoard.getCols(); j++) {
-		
-		for ( int dx = -1; dx <= 1; ++dx) {
-		    for (int dy = -1; dy <= 1; ++dy) {
-		        if (dx != 0 || dy != 0) {
-		        	if (lifeBoard.get(i, j) == true){
+	private int GetNeighbours(LifeBoard board, int inx, int iny) {
+		int counter = 0;		
+		for ( int y = iny-1; y <= iny+1; y++) {
+		    for (int x = inx-1; x <= inx+1; x++) {
+		        if (y == 0 && x == 0) {
+		        	counter= 0;
+		        	continue;
+		        }
+		        else {
+		        	if (board.get(y, x)){
 		        		counter++;
-		        	 this.i = i;
-		        	 this.j = j;
 		        	}
+		        }
 		            
 		        }
 		    }
-		}
-			}
-		}
-		
-		
 		return counter;
 		
 	}
